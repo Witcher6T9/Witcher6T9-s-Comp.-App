@@ -25,7 +25,8 @@ import {
   LayoutGrid,
   Upload,
   MessageSquare,
-  Network
+  Network,
+  TrendingUp
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -124,6 +125,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       badge: undefined
     },
     {
+      id: 'line-history',
+      label: 'Line History',
+      fullLabel: 'Line Production History & Efficiency Chart',
+      icon: TrendingUp,
+      badge: 'CHART'
+    },
+    {
       id: 'roles',
       label: 'IE Org',
       fullLabel: 'Debonair Unit-02 IE Org & Roles',
@@ -134,10 +142,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 
   const isTabActive = (tabId: string) =>
     currentTab === tabId ||
+    (tabId === 'line-history' && (currentTab === 'history' || currentTab === 'production-history')) ||
     (tabId === 'floor-plan' && (currentTab === 'line-management' || currentTab === 'floorplan'));
 
   // Secondary items handled in the "More" drawer on smaller mobile viewports
-  const secondaryTabIds = ['floor-plan', 'line-management', 'todo-schedule', 'lean-toolkit', 'monthly', 'reports', 'roles'];
+  const secondaryTabIds = ['line-history', 'floor-plan', 'line-management', 'todo-schedule', 'lean-toolkit', 'monthly', 'reports', 'roles'];
   const isSecondaryActive = secondaryTabIds.includes(currentTab);
   const activeSecondaryTab = allTabs.find(t => isTabActive(t.id));
 

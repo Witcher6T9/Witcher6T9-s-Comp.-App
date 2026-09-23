@@ -53,7 +53,7 @@ interface DashboardProps {
   onSelectDate?: (date: string) => void;
   onInitializeDateLines?: (date: string) => void;
   layout: DashboardLayout;
-  onNavigate: (tab: string) => void;
+  onNavigate: (tab: string, lineNo?: string) => void;
   onSelectLine: (lineNo: string) => void;
   checklistCompletion: number;
   checklistCounts?: {
@@ -2031,12 +2031,22 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <span className="w-3 h-1 bg-[#e6813e] rounded border-b border-dashed"></span> Planned Ramp-up
                 </span>
               </div>
-              <button
-                onClick={() => onNavigate('linedata')}
-                className="text-xs font-bold text-[#176f78] hover:underline"
-              >
-                View Balancing Graphs →
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('line-history', selectedLineNo)}
+                  className="text-xs font-bold text-[#176f78] hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  Line Efficiency History →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('linedata')}
+                  className="text-xs font-bold text-[#527078] hover:text-[#17343a] hover:underline cursor-pointer"
+                >
+                  View Balancing Graphs →
+                </button>
+              </div>
             </div>
           </div>
         )}

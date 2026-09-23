@@ -16,6 +16,7 @@ import { IESimulator } from './components/IESimulator';
 import { LineConfigurationTeams } from './components/LineConfigurationTeams';
 import { VisualFloorPlan } from './components/VisualFloorPlan';
 import { FloorPlanLineSetup } from './components/FloorPlanLineSetup';
+import { LineProductionHistoryView } from './components/LineProductionHistoryView';
 import { BottomNav } from './components/BottomNav';
 import { SettingsModal } from './components/SettingsModal';
 import { UserModal } from './components/UserModal';
@@ -1124,7 +1125,10 @@ export default function App() {
     const tabAliases: Record<string, string> = {
       lines: 'linedata',
       'daily-checklist': 'checklist',
-      'ie-simulator': 'simulator'
+      'ie-simulator': 'simulator',
+      history: 'line-history',
+      'production-history': 'line-history',
+      'line-history': 'line-history'
     };
 
     if (lineNo) setSelectedLineNo(lineNo);
@@ -1338,6 +1342,17 @@ export default function App() {
             onDeleteFloor={handleDeleteFloor}
             onImportLines={handleImportLines}
             onOpenDatabase={handleOpenDatabase}
+          />
+        )}
+
+        {(currentTab === 'line-history' || currentTab === 'history' || currentTab === 'production-history') && (
+          <LineProductionHistoryView
+            lines={lines}
+            selectedLineNo={selectedLineNo}
+            onSelectLineNo={setSelectedLineNo}
+            onNavigate={handleNavigate}
+            onSelectDate={handleSelectDate}
+            profile={profile}
           />
         )}
       </main>

@@ -68,7 +68,7 @@ interface LineDataProps {
   onAddNewLine?: (customLine?: LineEntry | Partial<LineEntry>) => void;
   onDeleteLine?: (identifier: string | number) => void;
   onDeleteFloor?: (floorName: string, mode: 'delete_all_lines' | 'reassign', targetFloor?: string) => void;
-  onNavigate?: (tab: string) => void;
+  onNavigate?: (tab: string, lineNo?: string) => void;
   activeDate?: string;
   onSelectDate?: (date: string) => void;
 }
@@ -1361,6 +1361,18 @@ export const LineData: React.FC<LineDataProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => onNavigate('line-history', formData.lineNo)}
+                className="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-xs font-bold text-[#176f78] flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                title="View multi-day efficiency trend & recharts curve"
+              >
+                <TrendingUp className="w-3.5 h-3.5 text-[#176f78]" />
+                <span>Efficiency History</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => setIsDirectoryModalOpen(true)}
@@ -1398,6 +1410,18 @@ export const LineData: React.FC<LineDataProps> = ({
           </div>
 
           <div className="flex items-center gap-2.5 self-end sm:self-auto">
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => onNavigate('line-history', formData.lineNo)}
+                className="px-3 py-1.5 rounded-full border border-teal-200 bg-teal-50 hover:bg-teal-100 text-[#176f78] text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                title={`View Historical Efficiency Trend for Line ${formData.lineNo}`}
+              >
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>History Chart</span>
+              </button>
+            )}
+
             <div className="px-3.5 py-1.5 rounded-full bg-[#eef7f7] border border-[#b2d8d8] flex items-center gap-2">
               <span className="text-[11px] font-bold text-[#527078] uppercase">Efficiency:</span>
               <span className="font-display text-lg font-bold text-[#176f78] font-mono-numbers">
