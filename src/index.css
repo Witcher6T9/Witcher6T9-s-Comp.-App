@@ -192,13 +192,37 @@ html.theme-transitioning *::after {
 /* ==========================================================================
    Mobile UX Polish & Touch Targets
    ========================================================================== */
+html,
+body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 @media (max-width: 640px) {
+  /* Prevent iOS Safari auto-zoom on field focus */
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Touch-friendly target heights */
   button,
-  a,
+  a[role="button"],
   input[type="button"],
   input[type="submit"] {
-    min-height: 40px;
+    min-height: 42px;
   }
+}
+
+/* Safe Area Inset Helpers */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Custom Scrollbar */

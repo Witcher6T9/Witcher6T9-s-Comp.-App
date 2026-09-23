@@ -166,7 +166,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         >
           <div
             id="bottom-nav-drawer"
-            className="w-full max-w-lg bg-[#fbfaf6] border-t border-x border-[#d9d2c2] rounded-t-3xl p-5 shadow-2xl space-y-4 mb-0 animate-slideUp cockpit-drawer"
+            className="w-full max-w-lg bg-[#fbfaf6] border-t border-x border-[#d9d2c2] rounded-t-3xl p-5 shadow-2xl space-y-4 mb-0 animate-slideUp cockpit-drawer max-h-[85vh] overflow-y-auto overscroll-contain pb-safe"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-[#e7e1d5] pb-3">

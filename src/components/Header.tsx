@@ -228,7 +228,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={onOpenChat}
                 title="Shop Floor Communications & AI Advisor"
                 aria-label="Shop Floor Chat"
-                className="relative w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl border border-[#d9d2c2] bg-white text-slate-700 hover:text-[#176f78] hover:border-[#176f78] flex items-center justify-center transition-all shadow-2xs cursor-pointer group touch-manipulation active:scale-95 shrink-0"
+                className="hidden sm:flex relative w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl border border-[#d9d2c2] bg-white text-slate-700 hover:text-[#176f78] hover:border-[#176f78] items-center justify-center transition-all shadow-2xs cursor-pointer group touch-manipulation active:scale-95 shrink-0"
               >
                 <MessageSquare className="w-4 h-4 transition-transform group-hover:scale-110" />
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
@@ -259,7 +259,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={onLockTerminal}
                 title="Lock Terminal Workstation"
                 aria-label="Lock Workstation"
-                className="relative w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl border border-[#d9d2c2] bg-white text-slate-700 hover:text-amber-600 hover:border-amber-400 flex items-center justify-center transition-all shadow-2xs cursor-pointer group touch-manipulation active:scale-95 shrink-0"
+                className="hidden md:flex relative w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl border border-[#d9d2c2] bg-white text-slate-700 hover:text-amber-600 hover:border-amber-400 items-center justify-center transition-all shadow-2xs cursor-pointer group touch-manipulation active:scale-95 shrink-0"
               >
                 <Lock className="w-4 h-4 transition-transform group-hover:scale-110" />
               </button>

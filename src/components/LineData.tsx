@@ -1192,14 +1192,14 @@ export const LineData: React.FC<LineDataProps> = ({
             </div>
 
             {/* Quick Line Selector Row */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 max-w-full">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 max-w-full snap-x snap-mandatory touch-scroll no-scrollbar">
               {sortedLines.map(line => {
                 const isSelected = line.lineNo === selectedLineNo;
                 return (
                   <button
                     key={line.id}
                     onClick={() => onSelectLineNo(line.lineNo)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+                    className={`px-3 py-1.5 min-h-[40px] rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 snap-start touch-manipulation active:scale-95 ${
                       isSelected
                         ? 'bg-[#176f78] text-white shadow-xs'
                         : 'bg-[#f1eee6] text-[#527078] hover:bg-[#e7e1d5] border border-[#d9d2c2]'
@@ -1238,7 +1238,7 @@ export const LineData: React.FC<LineDataProps> = ({
               <button
                 onClick={handleOpenAddLineModal}
                 title="Add New Sewing Line"
-                className="p-1.5 rounded-xl bg-[#176f78] text-white hover:bg-[#125860] transition-colors cursor-pointer shrink-0 shadow-2xs flex items-center gap-1 text-xs font-bold px-2.5"
+                className="p-1.5 min-h-[40px] rounded-xl bg-[#176f78] text-white hover:bg-[#125860] transition-colors cursor-pointer shrink-0 shadow-2xs flex items-center gap-1 text-xs font-bold px-2.5 snap-start touch-manipulation active:scale-95"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add</span>
@@ -1247,7 +1247,7 @@ export const LineData: React.FC<LineDataProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigate('simulator')}
-                  className="px-3 py-1.5 rounded-xl bg-[#f1eee6] text-[#176f78] hover:bg-[#dceceb] border border-[#d9d2c2] text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer ml-1"
+                  className="px-3 py-1.5 min-h-[40px] rounded-xl bg-[#f1eee6] text-[#176f78] hover:bg-[#dceceb] border border-[#d9d2c2] text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer ml-1 snap-start touch-manipulation active:scale-95"
                   title="Open IE Simulator"
                 >
                   <Sliders className="w-3.5 h-3.5" />

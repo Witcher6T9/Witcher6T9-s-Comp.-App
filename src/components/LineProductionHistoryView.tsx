@@ -378,7 +378,7 @@ export const LineProductionHistoryView: React.FC<LineProductionHistoryViewProps>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar snap-x snap-mandatory touch-scroll">
             {filteredLineChips.map(lineNo => {
               const isSelected = lineNo === currentLineNo;
               const lineSamples = lines.filter(l => l.lineNo === lineNo);
@@ -389,7 +389,7 @@ export const LineProductionHistoryView: React.FC<LineProductionHistoryViewProps>
                   key={lineNo}
                   type="button"
                   onClick={() => onSelectLineNo(lineNo)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 min-h-[40px] rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer flex items-center gap-1.5 snap-start touch-manipulation active:scale-95 ${
                     isSelected
                       ? 'bg-[#176f78] text-white shadow-xs ring-2 ring-[#176f78]/30 scale-102'
                       : 'bg-white hover:bg-[#f1eee6] border border-[#d9d2c2] text-[#17343a]'
@@ -826,7 +826,85 @@ export const LineProductionHistoryView: React.FC<LineProductionHistoryViewProps>
           </span>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Mobile Shift Cards View (screens < sm) */}
+        <div className="sm:hidden space-y-2.5">
+          {chartData.map((row) => {
+            const effDiff = Math.round((row.efficiency - row.targetEff) * 10) / 10;
+            const isMet = effDiff >= 0;
+
+            return (
+              <div
+                key={row.id}
+                className="p-3.5 rounded-xl bg-[#fbfaf6] border border-[#e7e1d5] space-y-2 shadow-2xs"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-bold text-xs text-[#17343a]">
+                      {row.rawDate}
+                    </span>
+                    <span className="text-[10px] text-[#527078] ml-1.5">
+                      ({row.dayLabel})
+                    </span>
+                    <div className="text-xs font-bold text-[#17343a] mt-0.5 line-clamp-1">
+                      {row.style}
+                    </div>
+                    <div className="text-[10px] text-[#527078]">
+                      {row.buyer} • SMV: {row.smv}m
+                    </div>
+                  </div>
+
+                  <span
+                    className={`shrink-0 px-2 py-0.5 rounded-lg text-xs font-black font-mono-numbers ${
+                      row.efficiency >= 60
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : row.efficiency >= row.targetEff
+                        ? 'bg-teal-50 text-teal-700 border border-teal-200'
+                        : 'bg-rose-50 text-rose-700 border border-rose-200'
+                    }`}
+                  >
+                    {row.efficiency}% Eff
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#e7e1d5] text-center font-mono-numbers">
+                  <div className="p-1 rounded-lg bg-white border border-[#e7e1d5]">
+                    <span className="text-[9px] uppercase tracking-wider text-[#527078] block">Output</span>
+                    <span className="text-xs font-bold text-[#17343a]">{formatNumber(row.achievedProd)}</span>
+                  </div>
+                  <div className="p-1 rounded-lg bg-white border border-[#e7e1d5]">
+                    <span className="text-[9px] uppercase tracking-wider text-[#527078] block">Target</span>
+                    <span className="text-xs font-bold text-[#527078]">{formatNumber(row.targetProd)}</span>
+                  </div>
+                  <div className="p-1 rounded-lg bg-white border border-[#e7e1d5]">
+                    <span className="text-[9px] uppercase tracking-wider text-[#527078] block">Variance</span>
+                    <span className={`text-xs font-bold ${isMet ? 'text-emerald-700' : 'text-rose-700'}`}>
+                      {isMet ? `+${effDiff}%` : `${effDiff}%`}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-[10px] text-[#527078]">
+                    {row.plannedMP} MP • {row.workingHours}h shift
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onSelectDate) onSelectDate(row.rawDate);
+                      if (onNavigate) onNavigate('linedata', row.lineNo);
+                    }}
+                    className="px-3 py-1.5 min-h-[36px] rounded-lg bg-[#176f78] text-white font-bold text-[11px] transition-colors cursor-pointer touch-manipulation active:scale-95"
+                  >
+                    Inspect Shift
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop / Tablet Shift Table (screens >= sm) */}
+        <div className="hidden sm:block overflow-x-auto touch-scroll">
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-[#e7e1d5] text-[#527078] uppercase text-[10px] font-bold tracking-wider">
@@ -891,7 +969,7 @@ export const LineProductionHistoryView: React.FC<LineProductionHistoryViewProps>
                           if (onSelectDate) onSelectDate(row.rawDate);
                           if (onNavigate) onNavigate('linedata', row.lineNo);
                         }}
-                        className="px-2.5 py-1 rounded-lg bg-[#f1eee6] hover:bg-[#176f78] text-[#17343a] hover:text-white font-bold text-[11px] transition-colors cursor-pointer"
+                        className="px-2.5 py-1 min-h-[32px] rounded-lg bg-[#f1eee6] hover:bg-[#176f78] text-[#17343a] hover:text-white font-bold text-[11px] transition-colors cursor-pointer touch-manipulation active:scale-95"
                         title={`Inspect Line ${row.lineNo} on ${row.rawDate}`}
                       >
                         Inspect
